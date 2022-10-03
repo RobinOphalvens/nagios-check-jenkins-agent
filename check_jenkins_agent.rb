@@ -61,8 +61,9 @@ end
 
 begin
   data = response['computer'].select { |computer| computer['displayName'] == host }
-rescue StandardError
-  puts "UNKNOWN: #{host} is not a part of the #{url} swam cluster!"
+  raise "UNKNOWN: #{host} is not a part of the #{url} swam cluster!" if data.empty?
+rescue StandardError => e
+  puts e.message
   exit 3
 end
 
