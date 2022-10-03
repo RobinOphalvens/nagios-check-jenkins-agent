@@ -53,9 +53,15 @@ begin
   end
   auth = { username: user, password: password }
   response = HTTParty.get("#{url}/manage/computer/api/json", basic_auth: auth)
+  raise 'UNKNOWN: Invalid credentials' if response.code == 401
+
+  if response.body.nil? || response.body.empty?
+    raise 'Failed to fetch computers. Please check the URL and/or credentials'
+  end
+
   response.parsed_response
-rescue StandardError
-  puts "UNKNOWN: Unknown error while fetching #{url} computers."
+rescue StandardError => e
+  puts e.message
   exit 3
 end
 
