@@ -8,7 +8,6 @@
 #
 # Users can mark if temporarily offline nodes should return WARN or OK.
 require 'optparse'
-require 'json'
 require 'httparty'
 
 url = nil
